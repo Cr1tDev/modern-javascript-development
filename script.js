@@ -35,8 +35,13 @@ const getLastPost = async function () {
 };
 
 // calling an async always return a promise, data not yet arrive
-const lastPost = await getLastPost();
-console.log(lastPost);
+// const lastPost = await getLastPost();
+// console.log(lastPost);
+// getLastPost().then(data => console.log(data));
+(async function () {
+  const lastPost = await getLastPost();
+  console.log(lastPost);
+})();
 
 // // Module Pattern
 // const ShoppingCart2 = (function () {
@@ -77,3 +82,25 @@ console.log(lastPost);
 
 // // Import
 // const {addToCarty} = require('./shoppingCart.js');
+
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: { loggedIn: true },
+};
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+stateClone.loggedIn = false;
+
+console.log(stateClone);
+console.log(stateDeepClone);
+
+// Maintain the state of the page
+if (module.hot) {
+  module.hot.accept();
+}
